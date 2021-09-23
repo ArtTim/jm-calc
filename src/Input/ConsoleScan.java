@@ -1,31 +1,47 @@
 package Input;
 
-import Calc.Calc;
-
-import java.io.IOException;
+import DataProcessing.Convertation;
+import DataProcessing.Validation;
 import java.util.Scanner;
 
 public class ConsoleScan {
+    Validation validation = new Validation();
+    Convertation conv = new Convertation();
+    public String a, b, c;
+    public boolean isArabian, isRomanian;
 
-    Scanner scan = new Scanner(System.in);
-    public int a, b;
-    public String c;
-    public String str = scan.nextLine();
-    public String[] splitScan = str.split(" ");
+    // Запрос ввода в консоль
+    public void req() throws ScannerException {
+        System.out.println("Введите арифметический запрос: ");
+        Scanner scan = new Scanner(System.in);
+        String str = scan.nextLine();
+        String[] splitScan = str.split(" ");
 
-    public String req() {
-        c = String.valueOf(splitScan[1]);
+        a = splitScan[0];
+        b = splitScan[2];
+        c = splitScan[1];
 
-        if (splitScan[0].matches("[0-9]{1,2}") && splitScan[2].matches("[0-9]{1,2}")) {
-            a = Integer.valueOf(splitScan[0]);
-            b = Integer.valueOf(splitScan[2]);
-        } else if (splitScan[0].matches("[A-Za-z]") && splitScan[2].matches("[A-Za-z]")) {
-            String a = splitScan[0];
-            String b = splitScan[2];
-            System.out.println("Первый операнд: " + a + "; Второй операнд: " + b + "; Операция: " + c);
+        // Валидация введённых данных
+        if (splitScan.length > 3) { //т.к. строка не является математической операцией
+            throw new ScannerException("throws Exception //т.к. строка не является математической операцией");
+        } else if (splitScan.length < 3) { //т.к. формат математической операции не удовлетворяет заданию
+            throw new ScannerException("throws Exception //т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+        } else {
+            if (validation.consoleValid(a,b,c) == 1) { // Если римские
+                a = conv.toArabian(a);
+                b = conv.toArabian(b);
+                isRomanian = true;
+//                System.out.println("Введены римские цифры");
+//                System.out.println(a + " " + c + " " + b);
+            } else if (validation.consoleValid(a,b,c) == 2) { // Если арабские
+                a = splitScan[0];
+                b = splitScan[2];
+                isArabian = true;
+                System.out.println("Введены арабские цифры");
+            } else {
+                throw new ScannerException("throws Exception //т.к. используются одновременно разные системы счисления");
+            }
         }
-        return str;
+
     }
-
-
 }
