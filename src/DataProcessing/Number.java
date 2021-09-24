@@ -5,6 +5,9 @@ public enum Number {
     XX(20), XXX(30), XL(40), L(50), LX(60), LXX(70), LXXX(80), XC(90), C(100);
 
     private int convertation;
+    Number() {
+
+    }
     Number(int convertation) {
         this.convertation = convertation;
     }

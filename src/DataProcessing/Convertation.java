@@ -11,35 +11,32 @@ public class Convertation {
       }
     return String.valueOf(x);
     }
-    public Number toRomanian(int a) {
+    public StringBuffer toRomanian(int a) {
         Number str = Number.I;
+        StringBuffer numString = new StringBuffer();
+        // Если число меньше десяти, или кратно 10
         if (a < 10 || a == 10 || a == 20 || a == 30 || a == 40 || a == 50 || a == 60 || a == 70 || a == 80 || a == 90 || a == 100) {
             for (int i = 0; i <= Number.values().length - 1; i++) {
                 if (Number.values()[i].getConvertation() == a) {
-                    System.out.println(Number.values()[i].getConvertation());
-                    str = Number.values()[i];
+                    numString.append(String.valueOf(Number.values()[i]));
                 }
             }
-            System.out.println("Сработало это условие");
-        } else { // TODO: 24.09.2021 Доделать конвертацию результата 
+        } else { //
             String intString = String.valueOf(a);
-            System.out.println("Строка: " + intString);
-            String[] newString =  intString.split("");
-            StringBuffer newStr = new StringBuffer();
-            newStr.append(str);
-            for (int i = 0, x = 0; i <= Number.values().length - 1; i++) {
-                if ((a - a % 10) == Number.values()[i].getConvertation()) {
-                    System.out.println(Number.values()[i]);
-                    str = Number.values()[i];
-                    newStr.append(newString[1]);
-                    System.out.println("New: " + newStr);
-                    x++;
 
+            String[] newString =  intString.split("");
+            for (int i = 0; i <= Number.values().length - 1; i++) {
+                if ((a - a % 10) == Number.values()[i].getConvertation()) {
+                    numString.append(String.valueOf(Number.values()[i]));
                 }
 
             }
-
+            for (int i = 0; i <= Number.values().length - 1; i++) {
+                if (Integer.valueOf(newString[1]) == Number.values()[i].getConvertation()) {
+                    numString.append(String.valueOf(Number.values()[i]));
+                }
+            }
         }
-        return str;
+        return numString;
     }
 }

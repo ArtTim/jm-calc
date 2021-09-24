@@ -37,7 +37,6 @@ public class ConsoleScan {
                 a = splitScan[0];
                 b = splitScan[2];
                 isArabian = true;
-                System.out.println("Введены арабские цифры");
             } else {
                 throw new ScannerException("throws Exception //т.к. используются одновременно разные системы счисления");
             }

@@ -31,7 +31,7 @@ public class Calculation {
                 System.out.println(conv.toRomanian(result));
             }
         } else {
-            System.out.println("Арабские: " + result);
+            System.out.println(result);
         }
     }
 
